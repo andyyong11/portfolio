@@ -6,4 +6,4 @@ var hi = prompt("What are your favorite things?");
 var math = 4;
 
 console.log(hi);
-console.log(math + 3);
+  
