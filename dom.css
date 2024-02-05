@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+#first {
+    display:block;
+    width:75%;
+    padding:15px;
+    outline: 5px solid burlywood;
+    text-align: center;
+    margin: 0 auto;
+}
+html{
+    background-color: darkgreen;
+}
+
+body{
+    background-color: darkolivegreen;
+}
+
