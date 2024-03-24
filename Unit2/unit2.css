@@ -4,4 +4,8 @@
 html{
     background-color: black;
     color: white;
+    text-align: center;
+}
+li {
+    list-style-type: none;
 }
