@@ -13,8 +13,6 @@ pygame.display.set_caption("My board")
 exit = False
 
 while not exit:
-    canvas.fill(color)
-    canvas.blit(image, dest = position)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit = True
