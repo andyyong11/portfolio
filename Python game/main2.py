@@ -15,7 +15,6 @@ try:
                pygame.image.load(os.path.join("Python game/marioMoving2", "marioMoving2.gif")),
                pygame.image.load(os.path.join("Python game/marioMoving2", "marioMoving3.gif"))]
     JUMPING = pygame.image.load(os.path.join("Python game/marioJumping2", "marioJumping.png"))
-    CROUCHING = pygame.image.load(os.path.join("Python game/marioCrouching2", "marioCrouching.png"))
 
     # Load the background and scale it to fit the screen
     BG = pygame.image.load(os.path.join("Python game/Background", "background.jpg"))
@@ -28,7 +27,6 @@ try:
     # Scale Mario images
     RUNNING = [pygame.transform.scale(img, (int(img.get_width() * SCALE_FACTOR_MARIO), int(img.get_height() * SCALE_FACTOR_MARIO))) for img in RUNNING]
     JUMPING = pygame.transform.scale(JUMPING, (int(JUMPING.get_width() * SCALE_FACTOR_MARIO), int(JUMPING.get_height() * SCALE_FACTOR_MARIO)))
-    CROUCHING = pygame.transform.scale(CROUCHING, (int(CROUCHING.get_width() * SCALE_FACTOR_MARIO), int(CROUCHING.get_height() * SCALE_FACTOR_MARIO)))
 
     # Load obstacle images
     GOOMBA = [pygame.image.load(os.path.join("Python game/Goomba", "frame_0_delay-0.15s.gif")),
@@ -47,15 +45,12 @@ except pygame.error as e:
 class Mario:
     X_POS = 80
     Y_POS = 370
-    Y_POS_CROUCH = 340
     JUMP_VEL = 8.5
 
     def __init__(self):
-        self.crouch_img = CROUCHING
         self.jump_img = JUMPING
         self.run_img = RUNNING
 
-        self.mario_crouch = False
         self.mario_run = True
         self.mario_jump = False
 
@@ -67,8 +62,6 @@ class Mario:
         self.mario_rect.y = self.Y_POS
 
     def update(self, userInput):
-        if self.mario_crouch:
-            self.crouch()
         if self.mario_run:
             self.run()
         if self.mario_jump:
@@ -78,24 +71,14 @@ class Mario:
             self.step_index = 0
         
         if userInput[pygame.K_UP] and not self.mario_jump:
-            self.mario_crouch = False
             self.mario_run = False
             self.mario_jump = True
         elif userInput[pygame.K_DOWN] and not self.mario_jump:
-            self.mario_crouch = True
             self.mario_run = False
             self.mario_jump = False
         elif not (self.mario_jump or userInput[pygame.K_DOWN]):
-            self.mario_crouch = False
             self.mario_run = True
             self.mario_jump = False
-    
-    def crouch(self):
-        self.image = self.crouch_img
-        self.mario_rect = self.image.get_rect()
-        self.mario_rect.x = self.X_POS
-        self.mario_rect.y = self.Y_POS_CROUCH
-        self.step_index += 1
     
     def run(self):
         self.image = self.run_img[self.step_index // 5]
